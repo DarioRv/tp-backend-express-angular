@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand">Programación y Servicios Web</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-between"
+      id="navbarNav"
+    >
+      <ul class="navbar-nav">
+        @for (menuItem of menuItems; track $index) {
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="menuItem.routerLink"
+            routerLinkActive="active"
+            >{{ menuItem.label }}</a
+          >
+        </li>
+        }
+      </ul>
+      <ul class="d-flex gap-3 m-0">
+        <li>
+          <button class="btn btn-outline-warning" (click)="seed()">
+            Rellenar BD
+          </button>
+        </li>
+        <li>
+          <button class="btn btn-outline-warning" (click)="clean()">
+            Limpiar BD
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

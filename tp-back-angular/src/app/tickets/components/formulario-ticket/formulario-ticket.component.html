@@ -1,0 +1,54 @@
+<h1 class="text-primary">Formulario de ticket</h1>
+<section>
+  <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="espectador" class="form-label">Espectador</label>
+      <input
+        type="text"
+        class="form-control"
+        id="espectador"
+        formControlName="espectador"
+      />
+
+      @if (espectador.touched && espectador.hasError('required')) {
+      <p class="text-danger">El espectador es obligatorio</p>
+      }
+    </div>
+    <div class="mb-3">
+      <label for="precio" class="form-label">Precio</label>
+      <input
+        type="number"
+        class="form-control"
+        id="precio"
+        formControlName="precio"
+      />
+
+      @if (precio.touched && precio.hasError('required')) {
+      <p class="text-danger">El precio es obligatorio</p>
+      }
+    </div>
+    <div class="mb-3">
+      <label for="categoria" class="form-label">Categoria</label>
+      <select
+        class="form-select"
+        id="categoria"
+        formControlName="categoriaEspectador"
+      >
+        <option value="l">Local</option>
+        <option value="e">Extranjero</option>
+      </select>
+
+      @if (categoriaEspectador.touched &&
+      categoriaEspectador.hasError('required')) {
+      <p class="text-danger">La categoria es obligatoria</p>
+      }
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="status === 'pending'"
+    >
+      {{ status === "pending" ? "Guardando..." : "Guardar" }}
+    </button>
+  </form>
+</section>

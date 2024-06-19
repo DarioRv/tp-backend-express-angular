@@ -1,0 +1,109 @@
+<h1>Formulario de producto</h1>
+<section>
+  <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nombre"
+        formControlName="nombre"
+      />
+      @if (nombre.touched && nombre.hasError('required')) {
+      <div class="text-danger">El nombre es obligatorio</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <input
+        type="text"
+        class="form-control"
+        id="descripcion"
+        formControlName="descripcion"
+      />
+
+      @if (descripcion.touched && descripcion.hasError('required')) {
+      <div class="text-danger">La descripción es obligatoria</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="imagen" class="form-label">Imagen</label>
+      <input
+        type="text"
+        class="form-control"
+        id="imagen"
+        formControlName="imagen"
+      />
+
+      @if (imagen.touched && imagen.hasError('required')) {
+      <div class="text-danger">La imagen es obligatoria</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="precio" class="form-label">Precio</label>
+      <input
+        type="number"
+        class="form-control"
+        id="precio"
+        formControlName="precio"
+      />
+
+      @if (precio.touched && precio.hasError('required')) {
+      <div class="text-danger">El precio es obligatorio</div>
+      } @if (precio.touched && precio.hasError('min')) {
+      <div class="text-danger">El precio debe ser mayor a 0</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="stock" class="form-label">Stock</label>
+      <input
+        type="number"
+        class="form-control"
+        id="stock"
+        formControlName="stock"
+      />
+
+      @if (stock.touched && stock.hasError('required')) {
+      <div class="text-danger">El stock es obligatorio</div>
+      } @if (stock.touched && stock.hasError('min')) {
+      <div class="text-danger">El stock debe ser mayor a 0</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="destacado">Destacado</label>
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="destacado"
+        formControlName="destacado"
+      />
+
+      @if (destacado.touched && destacado.hasError('required')) {
+      <div class="text-danger">El destacado es obligatorio</div>
+      }
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="status === 'pending'"
+    >
+      {{ status === "pending" ? "Guardando..." : "Guardar" }}
+    </button>
+  </form>
+</section>
+
+<section>
+  @switch (status) { @case ('success') {
+  <div class="alert alert-success text-center">Producto guardado</div>
+  } @case ('error') {
+  <div class="alert alert-success text-center">
+    Se ha producido un error al guardar el producto
+  </div>
+  } }
+</section>

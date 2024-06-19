@@ -1,0 +1,79 @@
+<h1 class="text-primary">Transaciones realizadas</h1>
+<section>
+  <div>
+    <h4>Filtros</h4>
+    <div class="d-flex align-items-center gap-4">
+      <button class="btn btn-outline-primary" (click)="getTransacciones()">
+        TODOS
+      </button>
+      <div class="d-flex gap-3">
+        <div>
+          <label for="origen">Origen</label>
+          <select
+            class="form-select"
+            name="origen"
+            id="origen"
+            style="width: fit-content"
+            #origen
+            (change)="
+              getTransacciones({
+                monedaOrigen: origen.value,
+                monedaDestino: destino.value
+              })
+            "
+          >
+            @for (moneda of currencies; track $index) {
+            <option [value]="moneda.value">{{ moneda.label }}</option>
+            }
+          </select>
+        </div>
+        <div>
+          <label for="destino">Destino</label>
+          <select
+            class="form-select"
+            name="destino"
+            id="destino"
+            style="width: fit-content"
+            #destino
+            (change)="
+              getTransacciones({
+                monedaOrigen: origen.value,
+                monedaDestino: destino.value
+              })
+            "
+          >
+            @for (moneda of currencies; track $index) {
+            <option [value]="moneda.value">{{ moneda.label }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    @for (transaccion of transacciones; track $index) {
+    <div class="col-12 col-md-4 col-lg-3 mb-2">
+      <article class="card m-2 p-2 w-100 h-100">
+        <h3 class="mb-3 fs-4">Cliente: {{ transaccion.emailCliente }}</h3>
+        <div class="d-flex justify-content-between">
+          <div>
+            <h5 class="fs-6">Origen</h5>
+            <p>
+              {{ transaccion.monedaOrigen }}
+              {{ transaccion.cantidadOrigen | currency }}
+            </p>
+          </div>
+          <div>
+            <h5 class="fs-6">Destino</h5>
+            <p>
+              {{ transaccion.monedaDestino }}
+              {{ transaccion.cantidadDestino | currency }}
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+    }
+  </div>
+</section>

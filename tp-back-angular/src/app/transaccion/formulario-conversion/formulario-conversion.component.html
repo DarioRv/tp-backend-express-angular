@@ -1,0 +1,74 @@
+<h1>Conversión de divisas</h1>
+<section>
+  <form [formGroup]="conversionForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="amount">Cantidad</label>
+      <input
+        class="form-control"
+        type="number"
+        id="amount"
+        formControlName="amount"
+      />
+      @if (amount.touched && amount.hasError('required')) {
+      <div class="text-danger">La cantidad es requerida</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="from">De</label>
+      <select class="form-select" id="from" formControlName="from">
+        @for (moneda of currencies; track $index) {
+        <option [value]="moneda.value">
+          {{ moneda.label }}
+        </option>
+        }
+      </select>
+      @if (from.touched && from.hasError('required')) {
+      <div class="text-danger">La moneda de origen es requerida</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="to">A</label>
+      <select class="form-select" id="to" formControlName="to">
+        @for (moneda of currencies; track $index) {
+        <option [value]="moneda.value">
+          {{ moneda.label }}
+        </option>
+        }
+      </select>
+      @if (to.touched && to.hasError('required')) {
+      <div class="text-danger">La moneda de destino es requerida</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="resultado">Cantidad</label>
+      <input
+        class="form-control"
+        type="number"
+        id="resultado"
+        readonly
+        [value]="resultadoConversion"
+      />
+    </div>
+
+    <div class="mb-3">
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="status === 'pending'"
+      >
+        {{ status === "pending" ? "Convirtiendo..." : "Convertir" }}
+      </button>
+    </div>
+  </form>
+</section>
+
+<section>
+  @switch (status) { @case ('success') {
+  <div class="alert alert-success">La conversión fue exitosa</div>
+  } @case ('error') {
+  <div class="alert alert-danger">Hubo un error en la conversión</div>
+  } }
+</section>

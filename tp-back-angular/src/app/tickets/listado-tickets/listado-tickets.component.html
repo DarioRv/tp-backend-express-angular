@@ -1,0 +1,53 @@
+<h1 class="text-primary">Tickets emitidos</h1>
+<h3>Filtros</h3>
+<div class="d-flex gap-3 align-items-center">
+  <button class="btn btn-outline-primary" (click)="getTickets()">TODOS</button>
+  <select
+    class="form-select d-inline"
+    name="categoria"
+    id="categoria"
+    #categoria
+    (change)="getTickets({ categoria: categoria.value })"
+    style="width: fit-content"
+  >
+    <option value="l">Local</option>
+    <option value="e">Extranjero</option>
+  </select>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Espectador</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Categoria</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (ticket of tickets; track $index) {
+    <tr>
+      <th scope="row">{{ ticket.espectador }}</th>
+      <td>{{ ticket.precio }}</td>
+      <td>{{ ticket.categoriaEspectador | categoria }}</td>
+      <td>
+        <div class="d-flex gap-2">
+          <button
+            class="btn btn-outline-info"
+            (click)="editTicket(ticket._id!)"
+          >
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+          <button
+            class="btn btn-outline-danger"
+            (click)="deleteTicket(ticket._id!)"
+          >
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+    } @empty {
+    <div class="alert alert-info">No hay tickets emitidos</div>
+    }
+  </tbody>
+</table>

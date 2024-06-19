@@ -1,0 +1,23 @@
+<section>
+  <h1>Productos destacados</h1>
+  <div class="row">
+    @for (producto of productos; track $index) {
+    <article class="card col-12 col-md-4 col-lg-3 mx-3">
+      <img
+        [src]="producto.imagen"
+        class="card-img-top img-fluid"
+        [alt]="producto.nombre"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ producto.nombre }}</h5>
+        <p class="card-text">{{ producto.descripcion }}</p>
+        <a href="#" class="btn btn-primary">Agregar al carrito</a>
+      </div>
+    </article>
+    } @empty {
+    <div class="alert alert-info text-center">
+      Por el momento no se encuentran disponibles los productos
+    </div>
+    }
+  </div>
+</section>
